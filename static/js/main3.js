@@ -20,15 +20,23 @@ const fetchMovieData = async () => {
   return data.results;
 };
 // fetchMovieData();
-//-----------여기까지 api 내려옴----------------------//
+//--------------------------------------------------------------------//
 
-// 2.화면에 붙이기
-
+// 2. api 필터링 후, 화면에 붙이기
 //함수 showMovies
-let showMovies = async () => {
+let showMovies = async (event) => {
+  event.preventDefault();
+
   let movies = await fetchMovieData();
 
-  movies.forEach((movie) => {
+  //필터링
+  let searchInput = document.querySelector("#searchInput").value;
+  let filteredMovies = movies.filter((movie) => {
+    return movie.title === searchInput;
+  });
+
+  //
+  filteredMovies.forEach((movie) => {
     let { poster_path, title, overview, vote_average, id } = movie;
 
     let movieCard = document.createElement("div");
@@ -56,21 +64,8 @@ let showMovies = async () => {
     movieCard.appendChild(idElement);
 
     let cardList = document.querySelector(".card-list");
-
+    cardList.innerHTML = ""; //
     cardList.append(movieCard);
   });
 };
-
-const searchMovies = async () => {
-  // 1. movies 가져오기.
-  // 1-1. movies를 전역 변수로 만들어서, 그냥 바로 사용하기.$
-  // 1-2. 위에처럼, 그냥 다시 한번 fetchMovieData 실행하기
-  // 2. movies 필러팅 하기 filter 함수 써서 하기
-  // 3. filteredMovies를 화면에 그리기
-  // 3-1. event.preventDefault 사용하기 (form 안에서 submit하는 버튼이 있으면, 새로고침됨;;)
-  // 3-2 기존에 화면에 그려져 있는 무비 카드들 지우기
-  // 3-3 이제 다시 위에서랑 똑같이 그려주기
-};
-
-// 첫 화면에 무비 리스트 보여주기
 showMovies();
