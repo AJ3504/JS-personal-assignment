@@ -22,9 +22,48 @@ const fetchMovieData = async () => {
 // fetchMovieData();
 //--------------------------------------------------------------------//
 
-// 2. api 필터링 후, 화면에 붙이기
+// 2. 화면에 먼저 보여주기
 //함수 showMovies
-let showMovies = async (event) => {
+let showMovies = async () => {
+  let movies = await fetchMovieData();
+
+  //
+  movies.forEach((movie) => {
+    let { poster_path, title, overview, vote_average, id } = movie;
+
+    let movieCard = document.createElement("div");
+    movieCard.className = "movie-card";
+
+    let posterPathElement = document.createElement("img");
+    posterPathElement.src = `https://image.tmdb.org/t/p/w500/${poster_path}`;
+
+    let titleElement = document.createElement("h3");
+    titleElement.textContent = title;
+
+    let overviewElement = document.createElement("p");
+    overviewElement.textContent = overview;
+
+    let voteAverageElement = document.createElement("p");
+    voteAverageElement.textContent = `Rating: ${vote_average}`;
+
+    let idElement = document.createElement("p");
+    idElement.textContent = `id: ${id}`;
+
+    movieCard.appendChild(posterPathElement);
+    movieCard.appendChild(titleElement);
+    movieCard.appendChild(overviewElement);
+    movieCard.appendChild(voteAverageElement);
+    movieCard.appendChild(idElement);
+
+    let cardList = document.querySelector(".card-list");
+    cardList.append(movieCard);
+  });
+};
+showMovies();
+//--------------------------------------------------------------------//
+
+//3.검색 -> 필터링해서 보여주기
+let sortMovies = async (event) => {
   event.preventDefault();
 
   let movies = await fetchMovieData();
@@ -68,4 +107,4 @@ let showMovies = async (event) => {
     cardList.append(movieCard);
   });
 };
-showMovies();
+sortMovies();
