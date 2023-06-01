@@ -85,7 +85,7 @@ let sortMovies = async (event) => {
   //필터링
   let searchInput = document.querySelector("#searchInput").value;
   let filteredMovies = movies.filter((movie) => {
-    return movie.title === searchInput;
+    return movie.title.toLowerCase().includes(searchInput.toLowerCase());
   });
 
   //
@@ -100,18 +100,29 @@ let sortMovies = async (event) => {
 
     let posterPathElement = document.createElement("img");
     posterPathElement.src = `https://image.tmdb.org/t/p/w400/${poster_path}`;
+    posterPathElement.style.marginLeft = "20px";
+    posterPathElement.style.marginTop = "20px";
 
     let titleElement = document.createElement("h3");
     titleElement.textContent = title;
+    titleElement.style.marginLeft = "10px";
+    titleElement.style.fontSize = "20px";
 
     let overviewElement = document.createElement("p");
     overviewElement.textContent = overview;
+    overviewElement.style.marginLeft = "10px";
+    overviewElement.style.marginRight = "10px";
+    overviewElement.style.textAlign = "justify";
 
     let voteAverageElement = document.createElement("p");
     voteAverageElement.textContent = `Rating: ${vote_average}`;
+    voteAverageElement.style.marginLeft = "10px";
+    voteAverageElement.style.marginRight = "10px";
 
     let idElement = document.createElement("p");
     idElement.textContent = `id: ${id}`;
+    idElement.style.marginLeft = "10px";
+    idElement.style.marginRight = "10px";
 
     movieCard.appendChild(posterPathElement);
     movieCard.appendChild(titleElement);
@@ -125,3 +136,8 @@ let sortMovies = async (event) => {
   });
 };
 sortMovies();
+
+window.addEventListener("load", function () {
+  let searchInput = document.querySelector("#searchInput");
+  searchInput.focus();
+});
