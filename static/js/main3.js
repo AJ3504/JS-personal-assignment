@@ -33,21 +33,35 @@ let showMovies = async () => {
 
     let movieCard = document.createElement("div");
     movieCard.className = "movie-card";
+    movieCard.onclick = function () {
+      alert(`ID : ${id}`);
+    };
 
     let posterPathElement = document.createElement("img");
-    posterPathElement.src = `https://image.tmdb.org/t/p/w500/${poster_path}`;
+    posterPathElement.src = `https://image.tmdb.org/t/p/w400/${poster_path}`;
+    posterPathElement.style.marginLeft = "20px";
+    posterPathElement.style.marginTop = "20px";
 
     let titleElement = document.createElement("h3");
     titleElement.textContent = title;
+    titleElement.style.marginLeft = "10px";
+    titleElement.style.fontSize = "20px";
 
     let overviewElement = document.createElement("p");
     overviewElement.textContent = overview;
+    overviewElement.style.marginLeft = "10px";
+    overviewElement.style.marginRight = "10px";
+    overviewElement.style.textAlign = "justify";
 
     let voteAverageElement = document.createElement("p");
     voteAverageElement.textContent = `Rating: ${vote_average}`;
+    voteAverageElement.style.marginLeft = "10px";
+    voteAverageElement.style.marginRight = "10px";
 
     let idElement = document.createElement("p");
     idElement.textContent = `id: ${id}`;
+    idElement.style.marginLeft = "10px";
+    idElement.style.marginRight = "10px";
 
     movieCard.appendChild(posterPathElement);
     movieCard.appendChild(titleElement);
@@ -64,7 +78,7 @@ showMovies();
 
 //3.검색 -> 필터링해서 보여주기
 let sortMovies = async (event) => {
-  event.preventDefault();
+  event.preventDefault(); //🤔이게 있어야 페이지 새로고침이 안되는데... 왜 콘솔에는 에러로 표시될까요
 
   let movies = await fetchMovieData();
 
@@ -80,9 +94,12 @@ let sortMovies = async (event) => {
 
     let movieCard = document.createElement("div");
     movieCard.className = "movie-card";
+    movieCard.onclick = function () {
+      alert(`ID : ${id}`);
+    };
 
     let posterPathElement = document.createElement("img");
-    posterPathElement.src = `https://image.tmdb.org/t/p/w500/${poster_path}`;
+    posterPathElement.src = `https://image.tmdb.org/t/p/w400/${poster_path}`;
 
     let titleElement = document.createElement("h3");
     titleElement.textContent = title;
